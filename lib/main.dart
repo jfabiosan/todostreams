@@ -1,6 +1,8 @@
 // main.dart
 import 'package:flutter/material.dart';
-import 'page/tasks_screen.dart';
+import 'package:provider/provider.dart';
+import 'page/task_screen.dart';
+import 'state/task_provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,10 +13,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Tasks App',
-      home: TasksScreen(),
+    return ChangeNotifierProvider(
+      create: (context) => TaskProvider(),
+      child: MaterialApp(
+        title: 'Lista de Tarefas',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const TaskScreen(),
+      ),
     );
   }
 }

@@ -1,73 +1,53 @@
-// add_task_dialog.dart
 import 'package:flutter/material.dart';
 import '/model/task_model.dart';
 
-class AddTaskDialog extends StatefulWidget {
-  const AddTaskDialog({super.key});
-
-  @override
-  State<AddTaskDialog> createState() => _AddTaskDialogState();
-}
-
-class _AddTaskDialogState extends State<AddTaskDialog> {
+class AddTaskDialog extends StatelessWidget {
   final TextEditingController _titleController = TextEditingController();
-  bool _isCompleted = false;
+
+  AddTaskDialog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('Adicionar Tarefa'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TextField(
-            controller: _titleController,
-            decoration: const InputDecoration(labelText: 'Titulo'),
-          ),
-          Row(
-            children: [
-              const Text('Clique quando Concluir'),
-              Switch(
-                value: _isCompleted,
-                onChanged: (value) {
-                  setState(() {
-                    _isCompleted = value;
-                  });
-                },
-              ),
-            ],
-          ),
-        ],
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Adicionar Tarefa'),
       ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: const Text('Cancelar'),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            TextField(
+              controller: _titleController,
+              decoration: const InputDecoration(labelText: 'Título'),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                String title = _titleController.text;
+                if (title.isNotEmpty) {
+                  Task newTask = Task(title: title);
+                  Navigator.of(context).pop(newTask);
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      backgroundColor: Colors.red,
+                      content: Text(
+                        "Digite o campo Título",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  );
+                }
+              },
+              child: const Text('Adicionar'),
+            ),
+          ],
         ),
-        TextButton(
-          onPressed: () {
-            String title = _titleController.text;
-            if (title.isNotEmpty) {
-              Task newTask = Task(title: title, isCompleted: _isCompleted);
-              Navigator.of(context).pop(newTask);
-            } else {
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                backgroundColor: Colors.red,
-                content: Text(
-                  "Digite o campo Titulo",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                  ),
-                ),
-              ));
-            }
-          },
-          child: const Text('Adicionar'),
-        ),
-      ],
+      ),
     );
   }
 }
