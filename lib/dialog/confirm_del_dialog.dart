@@ -1,10 +1,10 @@
 // confirm_del_dialog.dart
 import 'package:flutter/material.dart';
 
-class ConfirmDeleteDialog extends StatelessWidget {
+class ConfirmDelDialog extends StatelessWidget {
   final VoidCallback onDeleteConfirmed;
 
-  const ConfirmDeleteDialog({Key? key, required this.onDeleteConfirmed})
+  const ConfirmDelDialog({Key? key, required this.onDeleteConfirmed})
       : super(key: key);
 
   @override

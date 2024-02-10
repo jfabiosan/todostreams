@@ -7,8 +7,8 @@ import '/dialog/help_dialog.dart';
 import '/dialog/add_task_dialog.dart';
 import '/model/task_model.dart';
 
-class TaskScreen extends StatelessWidget {
-  const TaskScreen({super.key});
+class TaskPage extends StatelessWidget {
+  const TaskPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +73,7 @@ class TaskScreen extends StatelessWidget {
                         return await showDialog<bool>(
                           context: context,
                           builder: (BuildContext context) {
-                            return ConfirmDeleteDialog(
+                            return ConfirmDelDialog(
                               onDeleteConfirmed: () {
                                 provider.removeTask(index);
                               },
@@ -95,25 +95,16 @@ class TaskScreen extends StatelessWidget {
                 );
         },
       ),
-      floatingActionButton: Consumer<TaskProvider>(
-        builder: (context, taskProvider, _) {
-          return FloatingActionButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute<Task>(
-                  builder: (context) {
-                    return AddTaskDialog();
-                  },
-                ),
-              ).then((newTask) {
-                if (newTask != null) {
-                  taskProvider.addTask(newTask);
-                }
-              });
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AddTaskDialog();
             },
-            child: const Icon(Icons.add),
           );
         },
+        child: const Icon(Icons.add),
       ),
     );
   }
