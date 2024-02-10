@@ -119,11 +119,13 @@ class TaskItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(task.title),
-      trailing: Switch(
-        value: task.isCompleted,
-        onChanged: onToggle,
+    return Card(
+      child: ListTile(
+        title: Text(task.title),
+        trailing: Switch(
+          value: task.isCompleted,
+          onChanged: onToggle,
+        ),
       ),
     );
   }
