@@ -14,6 +14,7 @@ class TaskPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 60.2,
         title: const Text('Lista de Tarefas'),
         shape: const ContinuousRectangleBorder(
           borderRadius: BorderRadius.only(
